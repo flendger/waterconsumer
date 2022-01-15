@@ -1,5 +1,6 @@
 package ru.flendger.waterconsumer.model.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,9 +9,10 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
 public class WaterConsumption {
     private Long id;
-    private LocalDate consumingDate;
+    private LocalDate consumptionDate;
     private int quantity;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
