@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+
+    <changeSet id="1642326105053-1" author="kiru_e">
+        <createTable tableName="water_consumption">
+            <column name="id" autoIncrement="true" type="bigserial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="consumption_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="int" defaultValue="0"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_at" type="timestamp"/>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="updated_at" type="timestamp"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1642326555232-1" author="kiru_e">
+        <createIndex tableName="water_consumption" indexName="w_consumption_date_idx">
+            <column name="consumption_date"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
