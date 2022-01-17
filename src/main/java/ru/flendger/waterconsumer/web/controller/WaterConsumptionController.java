@@ -2,10 +2,7 @@ package ru.flendger.waterconsumer.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.flendger.waterconsumer.model.dto.WaterConsumptionDto;
 import ru.flendger.waterconsumer.model.manager.WaterConsumptionManager;
 
@@ -24,7 +21,7 @@ public class WaterConsumptionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(WaterConsumptionDto waterConsumptionDto) {
+    public ResponseEntity<?> save(@RequestBody WaterConsumptionDto waterConsumptionDto) {
         waterConsumptionManager.save(waterConsumptionDto);
 
         return ResponseEntity

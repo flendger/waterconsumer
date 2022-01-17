@@ -7,6 +7,7 @@ import ru.flendger.waterconsumer.model.entity.WaterConsumption;
 import ru.flendger.waterconsumer.model.service.WaterConsumptionService;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class WaterConsumptionServiceImpl implements WaterConsumptionService {
 
     @Override
     public int getConsumptionByDate(LocalDate date) {
-        return waterConsumptionRepository.overallQuantityByDate(date);
+        return Objects.requireNonNullElse(waterConsumptionRepository.overallQuantityByDate(date), 0);
     }
 
     @Override

@@ -9,5 +9,5 @@ import java.time.LocalDate;
 
 public interface WaterConsumptionRepository extends JpaRepository<WaterConsumption, Long> {
     @Query("select sum(quantity) from WaterConsumption where consumptionDate = :cons_date")
-    int overallQuantityByDate(@Param("cons_date") LocalDate date);
+    Integer overallQuantityByDate(@Param("cons_date") LocalDate date);
 }
