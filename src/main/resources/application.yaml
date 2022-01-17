@@ -7,7 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/water_db
     username: water
     password: water
-
   jpa:
     show-sql: false
     open-in-view: false

@@ -6,7 +6,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             return '';
         }
         let date = new Date(initDate);
-        return date.toLocaleDateString();
+        return date.toISOString();
     }
 
     $scope.getConsumption = function () {
