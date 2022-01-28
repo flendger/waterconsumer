@@ -21,7 +21,7 @@ class QuantityInput extends Component {
                     <label htmlFor="quantity" className="col-form-label">Quantity (ml)</label>
                 </div>
                 <div className="col">
-                    <input type="number" defaultValue={this.props.quantity} onChange={this.onQuantityChange} className="form-control" id="quantity"/>
+                    <input type="number" value={this.props.quantity} onChange={this.onQuantityChange} className="form-control" id="quantity"/>
                 </div>
             </div>
         );

@@ -23,7 +23,7 @@ export default class DateInput extends Component {
                     <label htmlFor="consumptionDate" className="col-form-label">Date</label>
                 </div>
                 <div className="col">
-                    <input type="date" defaultValue={dateValue} onChange={this.handleDateChange} className="form-control"
+                    <input type="date" value={dateValue} onChange={this.handleDateChange} className="form-control"
                            id="consumptionDate"/>
                 </div>
             </div>

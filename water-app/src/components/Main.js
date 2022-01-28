@@ -4,25 +4,33 @@ import DateInput from "./DateInput";
 import Overall from "./Overall";
 import QuantityInput from "./QuantityInput";
 import SubmitButton from "./SubmitButton";
+import axios from "axios";
 
 export default class Main extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            currentDate: '2022-01-28',
-            overallQuantity: 1500,
+            consumptionDate: '2022-01-01',
+            overallQuantity: 0,
             quantity: 250
         };
 
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleQuantityChange = this.handleQuantityChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateState = this.updateState.bind(this);
+    }
+
+    componentDidMount() {
+        this.getDataFromServer();
     }
 
     handleDateChange(newDate) {
         this.setState({
-            currentDate: newDate
+            consumptionDate: newDate
         });
+        this.getDataFromServer(newDate);
     }
 
     handleQuantityChange(newQuantity) {
@@ -31,8 +39,47 @@ export default class Main extends Component {
         });
     }
 
+    handleSubmit() {
+        const data = this.state;
+        this.postDataToServer(data);
+    }
+
+    getDataFromServer(curDate) {
+        const dateValue = curDate ?  curDate : '';
+        axios.get('api/v1/water',
+            {
+                params: {
+                    date: dateValue
+                }
+            })
+            .then(response => {
+                this.updateState(response.data);
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }
+
+    postDataToServer(data) {
+        axios.post('api/v1/water', data)
+            .then(() => {
+                this.getDataFromServer(data.consumptionDate);
+            })
+            .catch(error => {
+                alert(error);
+            });
+    }
+
+    updateState(responseData) {
+        this.setState({
+            consumptionDate: responseData.consumptionDate,
+            overallQuantity: responseData.overallQuantity,
+            quantity: responseData.quantity
+        });
+    }
+
     render() {
-        const currentDate = this.state.currentDate;
+        const currentDate = this.state.consumptionDate;
         const overallQuantity = this.state.overallQuantity;
         const quantity = this.state.quantity;
 
@@ -42,7 +89,7 @@ export default class Main extends Component {
                 <DateInput consumptionDate={currentDate} onDateChange={this.handleDateChange}/>
                 <Overall overallQuantity={overallQuantity}/>
                 <QuantityInput quantity={quantity} onQuantityChange={this.handleQuantityChange}/>
-                <SubmitButton/>
+                <SubmitButton onSubmit={this.handleSubmit}/>
             </div>
         );
     }
