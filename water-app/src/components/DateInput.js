@@ -1,15 +1,30 @@
 import {Component} from "react";
 
 export default class DateInput extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleDateChange = this.handleDateChange.bind(this);
+    }
+
+    handleDateChange(e) {
+        const dateValue = e.target.value;
+
+        this.props.onDateChange(dateValue);
+    }
+
     render() {
-        const date = this.props.consumptionDate.toISOString().substring(0, 10);
+        const dateValue = this.props.consumptionDate;
+
         return (
             <div className="mb-3 row">
                 <div className="col-4">
                     <label htmlFor="consumptionDate" className="col-form-label">Date</label>
                 </div>
                 <div className="col">
-                    <input type="date" defaultValue={date} className="form-control" id="consumptionDate"/>
+                    <input type="date" defaultValue={dateValue} onChange={this.handleDateChange} className="form-control"
+                           id="consumptionDate"/>
                 </div>
             </div>
         );
