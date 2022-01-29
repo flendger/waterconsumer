@@ -9,7 +9,9 @@ import ru.flendger.waterconsumer.model.service.DateService;
 import ru.flendger.waterconsumer.model.service.WaterConsumptionService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,12 +28,25 @@ public class WaterConsumptionManagerImpl implements WaterConsumptionManager {
 
         int overallConsumption = waterConsumptionService.getConsumptionByDate(consumptionDate);
 
+        LocalTime lastUpdate = getLastUpdateTime(consumptionDate);
+
         return WaterConsumptionDto
                 .builder()
                 .consumptionDate(consumptionDate)
                 .quantity(defaultConsumption)
                 .overallQuantity(overallConsumption)
+                .lastUpdate(lastUpdate)
                 .build();
+    }
+
+    private LocalTime getLastUpdateTime(LocalDate consumptionDate) {
+        Optional<WaterConsumption> waterConsumptionOptional = waterConsumptionService.getLastByDate(consumptionDate);
+        if (waterConsumptionOptional.isEmpty()) {
+            return LocalTime.of(0, 0);
+        }
+
+        WaterConsumption waterConsumption = waterConsumptionOptional.get();
+        return LocalTime.from( waterConsumption.getUpdatedAt());
     }
 
     @Override

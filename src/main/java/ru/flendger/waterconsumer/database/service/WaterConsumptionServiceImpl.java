@@ -8,6 +8,7 @@ import ru.flendger.waterconsumer.model.service.WaterConsumptionService;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,5 +23,10 @@ public class WaterConsumptionServiceImpl implements WaterConsumptionService {
     @Override
     public void save(WaterConsumption waterConsuming) {
         waterConsumptionRepository.save(waterConsuming);
+    }
+
+    @Override
+    public Optional<WaterConsumption> getLastByDate(LocalDate consumptionDate) {
+        return waterConsumptionRepository.findFirstByConsumptionDateOrderByUpdatedAtDesc(consumptionDate);
     }
 }
