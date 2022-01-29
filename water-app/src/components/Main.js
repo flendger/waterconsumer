@@ -13,7 +13,8 @@ export default class Main extends Component {
         this.state = {
             consumptionDate: '2022-01-01',
             overallQuantity: 0,
-            quantity: 250
+            quantity: 250,
+            lastUpdate: ''
         };
 
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -74,7 +75,8 @@ export default class Main extends Component {
         this.setState({
             consumptionDate: responseData.consumptionDate,
             overallQuantity: responseData.overallQuantity,
-            quantity: responseData.quantity
+            quantity: responseData.quantity,
+            lastUpdate: responseData.lastUpdate
         });
     }
 
@@ -82,12 +84,13 @@ export default class Main extends Component {
         const currentDate = this.state.consumptionDate;
         const overallQuantity = this.state.overallQuantity;
         const quantity = this.state.quantity;
+        const lastUpdate = this.state.lastUpdate;
 
         return (
             <div>
                 <Header/>
                 <DateInput consumptionDate={currentDate} onDateChange={this.handleDateChange}/>
-                <Overall overallQuantity={overallQuantity}/>
+                <Overall overallQuantity={overallQuantity} lastUpdate={lastUpdate}/>
                 <QuantityInput quantity={quantity} onQuantityChange={this.handleQuantityChange}/>
                 <SubmitButton onSubmit={this.handleSubmit}/>
             </div>
